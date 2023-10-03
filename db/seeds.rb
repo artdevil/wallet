@@ -8,7 +8,7 @@
 
 # create user
 
-3.times.each do |time|
+(1..3).each do |time|
   User
     .create_with(password: 'password')
     .find_or_create_by(email: "user_#{time}@example.com")
@@ -16,12 +16,12 @@
 end
 
 # create team
-3.times.each do |time|
+(1..3).each do |time|
   Team.find_or_create_by(name: "team_#{time}")
 end
 
 # create team members
-3.times.each do |time|
+(1..3).each do |time|
   user = User.find_by(email: "user_#{time}@example.com")
   team = Team.find_by(name: "team_#{time}")
 

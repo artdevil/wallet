@@ -2,8 +2,8 @@
 
 one:
   email: MyString
-  encrypted_password: MyString
+  password: MyString
 
 two:
   email: MyString
-  encrypted_password: MyString
+  password: MyString
