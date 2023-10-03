@@ -3,16 +3,15 @@ class Deposit < ApplicationRecord
 
   validates :amount, numericality: { greater_than: 0 }, presence: true
 
-  after_create :set_balance
+  after_create :set_owner_balance
 
   private
 
-  def set_balance
-    Balance.create(
+  def set_owner_balance
+    Balance.credit.create(
       owner: owner,
       reference: self,
-      amount: amount,
-      balance_type: 'debit'
+      amount: amount
     )
   end
 end
