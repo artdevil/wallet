@@ -1,4 +1,4 @@
-class UserSession::GetUserService < ApplicationService
+class UserSessions::GetUserService < ApplicationService
   attr_reader :token
 
   def initialize(token)

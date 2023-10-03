@@ -1,4 +1,4 @@
-class UserSession::GenerateTokenService < ApplicationService
+class UserSessions::GenerateTokenService < ApplicationService
   attr_reader :user
 
   def initialize(user)
