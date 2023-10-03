@@ -1,11 +1,5 @@
 class ApplicationController < ActionController::API
-  def current_resource_owner
-    User.find_by_id(doorkeeper_token.resource_owner_id) if doorkeeper_token
-  end
-
-  def current_user
-    current_resource_owner
-  end
+  attr_reader :current_user
 
   def respond_form_with_error(errors, params = {})
     data = {}
@@ -22,5 +16,23 @@ class ApplicationController < ActionController::API
     params[:data] = data if data.present?
 
     render json: params, status: :ok
+  end
+
+  def handle_bad_authentication
+    render json: { message: "Bad credentials" }, status: :unauthorized
+  end
+  
+  def authenticate_user!
+    authenticate_user_with_token || handle_bad_authentication
+  end
+
+  def authenticate_user_with_token
+    @current_user = UserSessions::GetUserService.call(bearer_token)
+  end
+
+  private
+
+  def bearer_token
+    request.headers['Authorization'].to_s.split(' ').last
   end
 end
