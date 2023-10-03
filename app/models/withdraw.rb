@@ -4,7 +4,6 @@ class Withdraw < ApplicationRecord
   validates :amount, numericality: { greater_than: 0 }, presence: true
   validate :check_owner_balance
 
-  # before_create :check_owner_balance
   after_create :set_owner_balance
 
   private
