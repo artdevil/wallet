@@ -18,6 +18,13 @@ class ApplicationController < ActionController::API
     render json: params, status: :ok
   end
 
+  def user_not_authorized
+    data = {}
+    data[:success] = false
+    data[:error] = 'You are not authorized to perform this action'
+    render json: data, status: :unauthorized
+  end
+
   def handle_bad_authentication
     render json: { message: "Bad credentials" }, status: :unauthorized
   end
